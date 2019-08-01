@@ -16,3 +16,11 @@ console.log(
     figlet.textSync('ProjectInit', { horizontalLayout: 'full' })
   )
 );
+
+// Check if this folder is a git repository
+if (files.directoryExists('.git')){
+  // Display "error" message
+  console.log(chalk.red('This folder already is a git respository!'));
+  // Quit node application
+  process.exit();
+}
