@@ -3,7 +3,8 @@ const clear   = require('clear');   // Clears terminal
 const figlet  = require('figlet');  // Generate a ASCII Banner
 
 // Out libs
-const files = require('./lib/files');
+const files    = require('./lib/files');
+const inquirer = require('./lib/inquirer');
 
 /* Application Start */
 
@@ -24,3 +25,13 @@ if (files.directoryExists('.git')){
   // Quit node application
   process.exit();
 }
+
+const run = async () => {
+  // Ask for user credentials
+  const credentails = await inquirer.askGithubCredentials();
+  
+  // Show return
+  console.log(credentails);
+}
+
+run();
