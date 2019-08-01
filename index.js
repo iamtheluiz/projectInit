@@ -3,8 +3,8 @@ const clear   = require('clear');   // Clears terminal
 const figlet  = require('figlet');  // Generate a ASCII Banner
 
 // Out libs
-const files    = require('./lib/files');
-const inquirer = require('./lib/inquirer');
+const files  = require('./lib/files');
+const github = require('./lib/github');
 
 /* Application Start */
 
@@ -27,11 +27,13 @@ if (files.directoryExists('.git')){
 }
 
 const run = async () => {
-  // Ask for user credentials
-  const credentails = await inquirer.askGithubCredentials();
-  
-  // Show return
-  console.log(credentails);
+  // Try to get the GitHub Token
+  let token = github.getStoredGithubToken();
+
+  if(!token){ // If the token not exists
+    await github.setGithubCredentials();      // Get user credentials
+    token = await github.registerNewToken();  // Register a new token
+  }
 }
 
 run();
